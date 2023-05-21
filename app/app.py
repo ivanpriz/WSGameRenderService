@@ -46,4 +46,3 @@ class App:
         await self._on_start()
         self.logger.debug("App started!")
         await self._run()
-        self.logger.debug("App stopped!")

@@ -75,3 +75,25 @@ class Rabbit:
             ),
             routing_key=routing_key,
         )
+
+    async def declare_exchange(self, name: str, _type: str) -> aio_pika.abc.AbstractExchange:
+        return await self.channel.declare_exchange(
+            name=name,
+            type=_type,
+            durable=True,
+        )
+
+    @staticmethod
+    async def publish_to_exchange(
+            exchange: aio_pika.Exchange,
+            routing_key: str,
+            msg: str,
+            content_type="application/json",
+    ):
+        await exchange.publish(
+            aio_pika.Message(
+                body=msg.encode(),
+                content_type=content_type,
+            ),
+            routing_key=routing_key,
+        )
